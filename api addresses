@@ -1,0 +1,7 @@
+POST to this to run actor
+https://api.apify.com/v2/actor-tasks/demonstrative_eel~get-all-winery-reviews/runs
+
+GET this to get results of the last run of actor
+https://api.apify.com/v2/actor-tasks/demonstrative_eel~get-all-winery-reviews/runs/last/dataset/items
+Add the status=SUCCEEDED query parameter to only get the last successful run of the Actor task.
+Supports all parameters of get items endpoint: https://docs.apify.com/api/v2#/reference/datasets/item-collection/get-items

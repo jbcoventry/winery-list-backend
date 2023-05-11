@@ -1,0 +1,14 @@
+{
+  "name": "winery-list-backend",
+  "version": "0.0.0",
+  "devDependencies": {
+    "wrangler": "2.19.0"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "dev": "wrangler dev",
+    "deploy": "wrangler publish --env production"
+  },
+  "prettier": {}
+}

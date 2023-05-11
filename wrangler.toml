@@ -1,0 +1,9 @@
+name = "winery-list-backend"
+main = "src/index.js"
+compatibility_date = "2023-05-11"
+
+[env.production]
+route = "*wineries.jbcov.com/api*"
+
+# [triggers]
+# crons = ["* * * * *"]
