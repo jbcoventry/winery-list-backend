@@ -1,9 +1,10 @@
 name = "winery-list-backend"
 main = "src/index.js"
 compatibility_date = "2023-05-11"
+kv_namespaces = [{ binding = "kv", id = "7936578a5c0a42e4b182fe01125e25a7", preview_id = "f6589089b33748f8b75c760ede758897" }]
 
 [env.production]
 route = "*wineries.jbcov.com/api*"
 
 # [triggers]
-# crons = ["* * * * *"]
+# crons = ["* * * * *"]-
