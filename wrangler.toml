@@ -5,6 +5,4 @@ kv_namespaces = [{ binding = "kv", id = "7936578a5c0a42e4b182fe01125e25a7", prev
 
 [env.production]
 route = "*wineries.jbcov.com/api*"
-
-[triggers]
-crons = ["0 19 * * *"]
+kv_namespaces = [{ binding = "kv", id = "7936578a5c0a42e4b182fe01125e25a7", preview_id = "3d9f7524172044aa9b513efaaf0e6217" }]

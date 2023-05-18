@@ -5,7 +5,6 @@ async function fetchActorResults(request, env, ctx) {
   url.searchParams.append("format", "json");
   url.searchParams.append("clean", "1");
   url.searchParams.append("status", "SUCCEEDED");
-  // url.searchParams.append("limit", "2");
   url.searchParams.append(
     "fields",
     "title,street,city,postalCode,website,totalScore,reviewsCount,reviewsDistribution,reviews"

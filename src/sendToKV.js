@@ -14,8 +14,9 @@ async function sendToKV(request, env, ctx, data) {
       reviews: filteredReviews,
     };
     await env.kv.put(filteredItem.title, JSON.stringify(filteredItem));
-    console.log(JSON.stringify(filteredItem));
   }
-  return new Response("Put to KV");
+  const titles = data.map((item) => item.title);
+  await env.kv.put("titles", JSON.stringify(titles));
+  return new Response("sendToKV successful", { status: 200 });
 }
 export default sendToKV;
