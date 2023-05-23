@@ -7,7 +7,7 @@ async function fetchActorResults(request, env, ctx) {
   url.searchParams.append("status", "SUCCEEDED");
   url.searchParams.append(
     "fields",
-    "title,street,city,postalCode,website,totalScore,reviewsCount,reviewsDistribution,reviews"
+    "placeId,title,scrapedAt,street,city,postalCode,website,totalScore,reviewsCount,reviews"
   );
   const response = await fetch(url, {
     method: "GET",
