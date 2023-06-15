@@ -1,4 +1,4 @@
-async function fetchActorResults(request, env, ctx) {
+async function fetchActorResults(request, env) {
   const url = new URL(
     "https://api.apify.com/v2/actor-tasks/demonstrative_eel~get-all-winery-reviews/runs/last/dataset/items"
   );

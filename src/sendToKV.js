@@ -1,36 +1,33 @@
 async function sendToKV(request, env, ctx, data) {
-  const wineries = data.map((item) => {
+  const wineries = data.map((winery) => {
     return {
-      id: item.placeId,
-      title: item.title,
-      scrapedAt: Date.parse(item.scrapedAt),
-      reviews: item.reviews.map((review) => review.reviewId),
+      title: winery.title,
+      reviews: winery.reviews.map((review) => {
+        return {
+          rating: review.stars,
+          timestamp: Math.round(Date.parse(review.publishedAtDate) / 1000),
+        };
+      }),
     };
   });
-  const reviewDetails = data
-    .map((item) => {
-      return item.reviews.map((review) => {
-        return {
-          id: review.reviewId,
-          rating: review.stars,
-          publishedAtDate: Date.parse(review.publishedAtDate),
-        };
-      });
-    })
-    .flat();
   const reviewComments = data
-    .map((item) => {
-      return item.reviews.map((review) => {
+    .map((winery, wineryIndex) => {
+      return winery.reviews.map((review, reviewIndex) => {
         return {
-          id: review.reviewId,
+          id: `${wineryIndex}-${reviewIndex}`,
           text: review.text,
         };
       });
     })
-    .flat();
-  await env.kv.put("wineries", JSON.stringify(wineries));
-  await env.kv.put("reviewDetails", JSON.stringify(reviewDetails));
-  await env.kv.put("reviewComments", JSON.stringify(reviewComments));
+    .flat()
+    .filter((review) => review.text !== null)
+    .reduce((acc, review) => {
+      const { id, text } = review;
+      return { ...acc, [id]: text };
+    }, {});
+  await env.kv.put("list", JSON.stringify(wineries));
+  await env.kv.put("comments", JSON.stringify(reviewComments));
+  await env.kv.put("lastUpdated", JSON.stringify(new Date().toJSON()));
   return new Response("sendToKV successful", { status: 200 });
 }
 export default sendToKV;
