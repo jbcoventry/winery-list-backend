@@ -1,4 +1,4 @@
-async function fetchActorResults(request, env) {
+async function fetchFromApify(request, env) {
   const url = new URL(
     "https://api.apify.com/v2/actor-tasks/demonstrative_eel~get-all-winery-reviews/runs/last/dataset/items"
   );
@@ -7,7 +7,7 @@ async function fetchActorResults(request, env) {
   url.searchParams.append("status", "SUCCEEDED");
   url.searchParams.append(
     "fields",
-    "placeId,title,scrapedAt,street,city,postalCode,website,totalScore,reviewsCount,reviews"
+    "title,street,city,postalCode,website,phoneUnformatted,location,openingHours,reviews"
   );
   const response = await fetch(url, {
     method: "GET",
@@ -22,4 +22,4 @@ async function fetchActorResults(request, env) {
   }
   return await response.json();
 }
-export default fetchActorResults;
+export default fetchFromApify;
