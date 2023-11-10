@@ -7,8 +7,12 @@ export default {
     if (request.url.includes("favicon.ico"))
       return new Response(null, { status: 404 });
     if (request.url.includes(`${env.APIFY_HOOK_URL_KEY}`)) {
+      console.time("fetchFromApify");
       const data = await fetchFromApify(request, env);
+      console.timeEnd("fetchFromApify");
+      console.time("sendToKV");
       await sendToKV(request, env, ctx, data);
+      console.timeEnd("sendToKV");
       return new Response("url key detected and KV updated", { status: 200 });
     }
     if (request.url.includes("list")) {

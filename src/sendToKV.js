@@ -1,4 +1,5 @@
 async function sendToKV(request, env, ctx, data) {
+  console.time("list");
   const list = data.map(
     (
       {
@@ -8,7 +9,6 @@ async function sendToKV(request, env, ctx, data) {
         postalCode,
         website,
         phoneUnformatted: phone,
-        location,
         openingHours,
         reviews,
       },
@@ -22,8 +22,8 @@ async function sendToKV(request, env, ctx, data) {
         postalCode,
         website,
         phone,
-        location,
         openingHours,
+        lastUpdated: new Date().toJSON(),
         reviews: reviews.map(({ stars: rating, publishedAtDate }) => {
           return {
             rating,
@@ -33,23 +33,47 @@ async function sendToKV(request, env, ctx, data) {
       };
     }
   );
-  const reviewsText = data
-    .map(({ reviews }, wineryIndex) => {
-      return reviews.map(({ text }, reviewIndex) => {
-        return {
-          id: `${wineryIndex}-${reviewIndex}`,
-          text,
-        };
-      });
-    })
-    .flat()
-    .filter(({ text }) => text !== null)
-    .reduce((acc, { id, text }) => {
-      return { ...acc, [id]: text };
-    }, {});
-  await env.kv.put("list", JSON.stringify(list));
-  await env.kv.put("reviewsText", JSON.stringify(reviewsText));
-  await env.kv.put("lastUpdated", JSON.stringify(new Date().toJSON()));
-  return new Response("sendToKV successful", { status: 200 });
+  console.timeEnd("list");
+  // console.time("reviewsText");
+
+  // const reviewsText = data
+  //   .map(({ reviews }, wineryIndex) => {
+  //     return reviews.map(({ text }, reviewIndex) => {
+  //       return {
+  //         id: `${wineryIndex}-${reviewIndex}`,
+  //         text,
+  //       };
+  //     });
+  //   })
+  //   .flat()
+  //   .filter(({ text }) => text !== null)
+  //   .reduce((acc, { id, text }) => {
+  //     return { ...acc, [id]: text };
+  //   }, {});
+  // console.timeEnd("reviewsText");
+
+  await env.kv.put("list", JSON.stringify(list), {
+    expirationTtl: 60 * 60 * 24 * 30,
+  });
+  // await env.kv.put("reviewsText", JSON.stringify(reviewsText), {
+  //   expirationTtl: 60 * 60 * 24 * 30,
+  // });
+  await env.kv.put("lastUpdated", JSON.stringify(new Date().toJSON()), {
+    expirationTtl: 60 * 60 * 24 * 30,
+  });
+
+  // data.forEach(async ({ title, reviews }, wineryIndex) => {
+  //   const formattedReviews = reviews
+  //     .map(({ text }, reviewIndex) => {
+  //       return {
+  //         id: reviewIndex,
+  //         text,
+  //       };
+  //     })
+  //     .filter(({ text }) => text !== null)
+  //     .reduce((acc, { id, text }) => {});
+
+  //   return new Response("sendToKV successful", { status: 200 });
+  // });
 }
 export default sendToKV;
