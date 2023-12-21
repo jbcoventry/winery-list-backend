@@ -1,18 +1,13 @@
+import createIndividualWineryAPIResponses from "./createIndividualWineryAPIResponses";
 import fetchFromApify from "./fetchFromApify";
-import sendToKV from "./sendToKV";
+import createWineryList from "./createWineryList";
 
 export default {
   async fetch(request, env, ctx) {
-    //Chrome always requests a favicon unless site has one cached or you return 404.
-    if (request.url.includes("favicon.ico"))
-      return new Response(null, { status: 404 });
     if (request.url.includes(`${env.APIFY_HOOK_URL_KEY}`)) {
-      console.time("fetchFromApify");
       const data = await fetchFromApify(request, env);
-      console.timeEnd("fetchFromApify");
-      console.time("sendToKV");
-      await sendToKV(request, env, ctx, data);
-      console.timeEnd("sendToKV");
+      await createWineryList(request, env, ctx, data);
+      await createIndividualWineryAPIResponses(request, env, ctx, data);
       return new Response("url key detected and KV updated", { status: 200 });
     }
     if (request.url.includes("list")) {

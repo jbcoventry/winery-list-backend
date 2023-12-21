@@ -9,8 +9,7 @@ async function fetchFromApify(request, env) {
     "fields",
     "title,street,city,postalCode,website,phoneUnformatted,location,openingHours,reviews"
   );
-  
-  // url.searchParams.append("limit", "10");
+
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -25,5 +24,3 @@ async function fetchFromApify(request, env) {
   return await response.json();
 }
 export default fetchFromApify;
-
-// https://api.apify.com/v2/actor-tasks/demonstrative_eel~get-all-winery-reviews/runs/last/dataset/items?token=apify_api_wxMxfCUaKLeiEFjRWTX3zIfmKIVGhe0cfCtY&format=json&clean=1&status=SUCCEEDED&fields=title,street,city,postalCode,website,phoneUnformatted,location,openingHours,reviews
