@@ -3,11 +3,15 @@ import fetchFromApify from "./fetchFromApify";
 import createWineryList from "./createWineryList";
 
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(
+    request: Request,
+    env: Env,
+    ct: ExecutionContext
+  ): Promise<Response> {
     if (request.url.includes(`${env.APIFY_HOOK_URL_KEY}`)) {
-      const data = await fetchFromApify(request, env);
-      await createWineryList(request, env, ctx, data);
-      await createIndividualWineryAPIResponses(request, env, ctx, data);
+      const ApifyResponse = await fetchFromApify(request, env);
+      await createWineryList(request, env, ct, ApifyResponse);
+      await createIndividualWineryAPIResponses(request, env, ct, ApifyResponse);
       return new Response("url key detected and KV updated", { status: 200 });
     }
     if (request.url.includes("list")) {

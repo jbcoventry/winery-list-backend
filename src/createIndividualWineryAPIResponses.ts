@@ -1,5 +1,10 @@
-async function createIndividualWineryAPIResponses(request, env, ctx, data) {
-  const body = data.map((review, index) => {
+async function createIndividualWineryAPIResponses(
+  request: Request,
+  env: Env,
+  ct: ExecutionContext,
+  ApifyResponse: Winery[]
+) {
+  const body = ApifyResponse.map((review, index) => {
     return {
       expiration_ttl: 60 * 60 * 24 * 30,
       key: `winery-index-${index}`,
