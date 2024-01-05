@@ -1,5 +1,10 @@
-async function createWineryList(request, env, ctx, data) {
-  const list = data.map(
+async function createWineryList(
+  request: Request,
+  env: Env,
+  ct: ExecutionContext,
+  ApifyResponse: Winery[]
+) {
+  const list = ApifyResponse.map(
     (
       {
         title,
