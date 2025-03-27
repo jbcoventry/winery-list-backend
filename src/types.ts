@@ -20,7 +20,7 @@ export type Env = {
   KV_NAMESPACE_ID: String;
   CLOUDFLARE_KEY: String;
 };
-export type Winery = {
+export type WineryOld = {
   title: string;
   street: string;
   city: string;
@@ -30,4 +30,52 @@ export type Winery = {
   openingHours: string;
   lastUpdated: string;
   reviews: { stars: number; publishedAtDate: string }[];
+};
+
+export type Winery = {
+  city: string;
+  location: { lat: number; lng: number } | null;
+  openingHours:
+    | [
+        { day: "Monday"; hours: string },
+        { day: "Tuesday"; hours: string },
+        { day: "Wednesday"; hours: string },
+        { day: "Thursday"; hours: string },
+        { day: "Friday"; hours: string },
+        { day: "Saturday"; hours: string },
+        { day: "Sunday"; hours: string },
+      ]
+    | []
+    | null;
+  phoneUnformatted: string;
+  postalCode: string;
+  reviews: {
+    reviewerId: string;
+    reviewerUrl: string;
+    name: string;
+    reviewerNumberOfReviews: number;
+    isLocalGuide: boolean;
+    reviewerPhotoUrl: string;
+    text: string | null;
+    textTranslated: unknown | null;
+    publishAt: string;
+    publishedAtDate: string;
+    likesCount: number;
+    reviewId: string;
+    reviewUrl: string;
+    reviewOrigin: string;
+    stars: 1 | 2 | 3 | 4 | 5;
+    rating: null;
+    responseFromOwnerDate: null;
+    responseFromOwnerText: null;
+    reviewImageUrls: [];
+    reviewContext: {};
+    reviewDetailedRating: {};
+    visitedIn: null | unknown;
+    originalLanguage: string;
+    translatedLanguage: null | unknown;
+  }[];
+  street: string;
+  title: string;
+  website: string;
 };

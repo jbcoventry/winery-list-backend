@@ -4,12 +4,13 @@ async function createIndividualWineryAPIResponses(
   env: Env,
   ct: ExecutionContext,
   ApifyResponse: Winery[],
+  wineryIds: string[],
 ) {
-  const body = ApifyResponse.map((review, index) => {
+  const body = ApifyResponse.map((winery, index) => {
     return {
       expiration_ttl: 60 * 60 * 24 * 30,
-      key: `winery-index-${index}`,
-      value: JSON.stringify(review),
+      key: `${wineryIds[index]}`,
+      value: JSON.stringify(winery),
     };
   });
 

@@ -4,7 +4,10 @@ async function createWineryList(
   env: Env,
   ct: ExecutionContext,
   ApifyResponse: Winery[],
+  wineryIds: string[],
 ) {
+  console.time("createWineryList ApifyResponse.map");
+
   const list = ApifyResponse.map(
     (
       {
@@ -15,12 +18,13 @@ async function createWineryList(
         website,
         phoneUnformatted: phone,
         openingHours,
+        location,
         reviews,
       },
       index,
     ) => {
       return {
-        id: index,
+        id: wineryIds[index],
         title,
         street,
         city,
@@ -28,6 +32,7 @@ async function createWineryList(
         website,
         phone,
         openingHours,
+        location,
         lastUpdated: new Date().toJSON(),
         reviews: reviews.map(({ stars: rating, publishedAtDate }) => {
           return {
@@ -38,6 +43,8 @@ async function createWineryList(
       };
     },
   );
+  console.timeEnd("createWineryList ApifyResponse.map");
+
   await env.kv.put("list", JSON.stringify(list), {
     expirationTtl: 60 * 60 * 24 * 30,
   });
