@@ -5,10 +5,10 @@
     "lib": ["esnext"],
 
     /* Modules */
-    "module": "esnext" /* Specify what module code is generated. */,
-    "moduleResolution": "nodenext" /* Specify how TypeScript looks up a file from a given module specifier. */,
+    "module": "node16" /* Specify what module code is generated. */,
+    "moduleResolution": "node16" /* Specify how TypeScript looks up a file from a given module specifier. */,
     "types": [
-      "worker-configuration.d.ts"
+      "@cloudflare/workers-types"
     ] /* Specify type package names to be included without being referenced in a source file. */,
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
     "resolveJsonModule": true /* Enable importing .json files */,

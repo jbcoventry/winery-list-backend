@@ -1,8 +1,9 @@
+import { Env, Winery } from "./types";
 async function createIndividualWineryAPIResponses(
   request: Request,
   env: Env,
   ct: ExecutionContext,
-  ApifyResponse: Winery[]
+  ApifyResponse: Winery[],
 ) {
   const body = ApifyResponse.map((review, index) => {
     return {
@@ -22,7 +23,7 @@ async function createIndividualWineryAPIResponses(
   };
   const response = await fetch(
     `https://api.cloudflare.com/client/v4/accounts/${env.CLOUDFLARE_ACCOUNT_ID}/storage/kv/namespaces/${env.KV_NAMESPACE_ID}/bulk`,
-    requestOptions
+    requestOptions,
   );
   const result = await response.json();
   return result;

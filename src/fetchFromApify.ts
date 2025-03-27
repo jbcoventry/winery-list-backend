@@ -1,13 +1,14 @@
+import { Env, Winery } from "./types";
 async function fetchFromApify(request: Request, env: Env): Promise<Winery[]> {
   const url = new URL(
-    "https://api.apify.com/v2/actor-tasks/demonstrative_eel~get-all-winery-reviews/runs/last/dataset/items"
+    "https://api.apify.com/v2/actor-tasks/demonstrative_eel~get-all-winery-reviews/runs/last/dataset/items",
   );
   url.searchParams.append("format", "json");
   url.searchParams.append("clean", "1");
   url.searchParams.append("status", "SUCCEEDED");
   url.searchParams.append(
     "fields",
-    "title,street,city,postalCode,website,phoneUnformatted,location,openingHours,reviews"
+    "title,street,city,postalCode,website,phoneUnformatted,location,openingHours,reviews",
   );
 
   const response = await fetch(url, {

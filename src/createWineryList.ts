@@ -1,8 +1,9 @@
+import { Env, Winery } from "./types";
 async function createWineryList(
   request: Request,
   env: Env,
   ct: ExecutionContext,
-  ApifyResponse: Winery[]
+  ApifyResponse: Winery[],
 ) {
   const list = ApifyResponse.map(
     (
@@ -16,7 +17,7 @@ async function createWineryList(
         openingHours,
         reviews,
       },
-      index
+      index,
     ) => {
       return {
         id: index,
@@ -35,7 +36,7 @@ async function createWineryList(
           };
         }),
       };
-    }
+    },
   );
   await env.kv.put("list", JSON.stringify(list), {
     expirationTtl: 60 * 60 * 24 * 30,

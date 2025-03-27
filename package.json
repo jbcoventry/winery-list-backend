@@ -2,10 +2,10 @@
   "name": "winery-list-backend",
   "version": "0.0.0",
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250321.0",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
     "prettier": "^3.5.3",
-    "prettier-plugin-toml": "^2.0.2",
     "typescript": "^5.8.2",
     "wrangler": "4.5"
   },
@@ -13,8 +13,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy -e production",
-    "generate-types": "wrangler types",
-    "type-check": "generate-types && tsc"
+    "typecheck": "tsc"
   },
   "prettier": {}
 }

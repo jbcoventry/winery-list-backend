@@ -1,12 +1,13 @@
 import createIndividualWineryAPIResponses from "./createIndividualWineryAPIResponses";
 import fetchFromApify from "./fetchFromApify";
 import createWineryList from "./createWineryList";
+import { Env, Winery } from "./types";
 
 export default {
   async fetch(
     request: Request,
     env: Env,
-    ct: ExecutionContext
+    ct: ExecutionContext,
   ): Promise<Response> {
     if (request.url.includes(`${env.APIFY_HOOK_URL_KEY}`)) {
       const ApifyResponse = await fetchFromApify(request, env);

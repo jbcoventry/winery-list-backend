@@ -1,4 +1,4 @@
-interface Env {
+export type Env = {
   // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
   // MY_KV_NAMESPACE: KVNamespace;
   //
@@ -19,8 +19,8 @@ interface Env {
   CLOUDFLARE_ACCOUNT_ID: String;
   KV_NAMESPACE_ID: String;
   CLOUDFLARE_KEY: String;
-}
-interface Winery {
+};
+export type Winery = {
   title: string;
   street: string;
   city: string;
@@ -28,5 +28,6 @@ interface Winery {
   website: string;
   phoneUnformatted: string;
   openingHours: string;
+  lastUpdated: string;
   reviews: { stars: number; publishedAtDate: string }[];
-}
+};
