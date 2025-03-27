@@ -11,9 +11,10 @@
   },
   "private": true,
   "scripts": {
-    "start": "wrangler dev",
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy -e production"
+    "deploy": "wrangler deploy -e production",
+    "generate-types": "wrangler types",
+    "type-check": "generate-types && tsc"
   },
   "prettier": {}
 }
