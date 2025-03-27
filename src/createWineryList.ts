@@ -6,8 +6,6 @@ async function createWineryList(
   ApifyResponse: Winery[],
   wineryIds: string[],
 ) {
-  console.time("createWineryList ApifyResponse.map");
-
   const list = ApifyResponse.map(
     (
       {
@@ -43,7 +41,6 @@ async function createWineryList(
       };
     },
   );
-  console.timeEnd("createWineryList ApifyResponse.map");
 
   await env.kv.put("list", JSON.stringify(list), {
     expirationTtl: 60 * 60 * 24 * 30,

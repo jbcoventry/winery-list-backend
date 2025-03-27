@@ -27,10 +27,16 @@ export default {
     }
     if (request.url.includes("wineries/")) {
       const wineryId = request.url.split("/").pop();
-      console.log(wineryId);
-      const data = await env.kv.get("list", { type: "json" });
-      console.log(data);
-      // TODO: handle error in next line when no winery with id `wineryId` exists
+      const data: (Winery & { id: string }[]) | null = await env.kv.get(
+        "list",
+        { type: "json" },
+      );
+      if (data === null) {
+        return new Response("something went wrong", {
+          status: 500,
+          headers: { "content-type": "application/json;charset=UTF-8" },
+        });
+      }
       const winery = data.filter((w) => w.id == wineryId).pop();
       const responseData = JSON.stringify(winery);
       return new Response(responseData, {

@@ -12,15 +12,16 @@
   "env": {
     "production": {
       "route": {
-        "pattern": "*wineries.jbcov.com/api*"
-      }
-    },
-    "kv_namespaces": [
-      {
-        "binding": "kv",
-        "id": "7936578a5c0a42e4b182fe01125e25a7",
-        "preview_id": "3d9f7524172044aa9b513efaaf0e6217"
-      }
-    ]
+        "pattern": "*wineries.jbcov.com/api*",
+        "zone_name": "jbcov.com"
+      },
+      "kv_namespaces": [
+        {
+          "binding": "kv",
+          "id": "7936578a5c0a42e4b182fe01125e25a7",
+          "preview_id": "3d9f7524172044aa9b513efaaf0e6217"
+        }
+      ]
+    }
   }
 }
