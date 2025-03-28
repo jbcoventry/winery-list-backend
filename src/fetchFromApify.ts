@@ -8,7 +8,7 @@ async function fetchFromApify(request: Request, env: Env): Promise<Winery[]> {
   url.searchParams.append("status", "SUCCEEDED");
   url.searchParams.append(
     "fields",
-    "title,street,city,postalCode,website,phoneUnformatted,location,openingHours,reviews",
+    "title,street,city,postalCode,website,phoneUnformatted,location,openingHours,placeId,reviews",
   );
 
   const response = await fetch(url, {

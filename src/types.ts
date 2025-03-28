@@ -49,6 +49,7 @@ export type Winery = {
     | null;
   phoneUnformatted: string;
   postalCode: string;
+  placeId: string;
   reviews: {
     reviewerId: string;
     reviewerUrl: string;

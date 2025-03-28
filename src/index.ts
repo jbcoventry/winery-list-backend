@@ -15,13 +15,13 @@ export default {
       const wineryIds = idMaker(ApifyResponse);
       await createWineryList(request, env, ct, ApifyResponse, wineryIds);
 
-      await createIndividualWineryAPIResponses(
-        request,
-        env,
-        ct,
-        ApifyResponse,
-        wineryIds,
-      );
+      // await createIndividualWineryAPIResponses(
+      //   request,
+      //   env,
+      //   ct,
+      //   ApifyResponse,
+      //   wineryIds,
+      // );
 
       return new Response("url key detected and KV updated", { status: 200 });
     }

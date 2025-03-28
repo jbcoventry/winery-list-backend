@@ -17,6 +17,7 @@ async function createWineryList(
         phoneUnformatted: phone,
         openingHours,
         location,
+        placeId,
         reviews,
       },
       index,
@@ -31,6 +32,7 @@ async function createWineryList(
         phone,
         openingHours,
         location,
+        placeId,
         lastUpdated: new Date().toJSON(),
         reviews: reviews.map(({ stars: rating, publishedAtDate }) => {
           return {
