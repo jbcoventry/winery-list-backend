@@ -1,8 +1,9 @@
 import createIndividualWineryAPIResponses from "./createIndividualWineryAPIResponses";
 import fetchFromApify from "./fetchFromApify";
 import createWineryList from "./createWineryList";
-import { Env, Winery } from "./types";
+import { Env, Winery, WineryWithID } from "./types";
 import idMaker from "./idMaker";
+import fetchFromGoogleMaps from "./fetchFromGoogleMaps";
 
 export default {
   async fetch(
@@ -27,10 +28,9 @@ export default {
     }
     if (request.url.includes("wineries/")) {
       const wineryId = request.url.split("/").pop();
-      const data: (Winery & { id: string }[]) | null = await env.kv.get(
-        "list",
-        { type: "json" },
-      );
+      const data: WineryWithID | null = await env.kv.get("list", {
+        type: "json",
+      });
       if (data === null) {
         return new Response("something went wrong", {
           status: 500,
@@ -42,6 +42,17 @@ export default {
       return new Response(responseData, {
         status: 200,
         headers: { "content-type": "application/json;charset=UTF-8" },
+      });
+    }
+    if (request.url.includes("map/")) {
+      const wineryId = request.url.split("/").pop();
+      const data = await fetchFromGoogleMaps(request, env, wineryId);
+      // Fix below error
+      return new Response(data, {
+        status: 200,
+        headers: {
+          "content-type": "image/png",
+        },
       });
     }
     if (request.url.includes("list")) {
@@ -65,6 +76,7 @@ export default {
         headers: { "content-type": "application/json;charset=UTF-8" },
       });
     }
+
     return new Response("query needed!", {
       status: 200,
     });

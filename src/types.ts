@@ -13,12 +13,13 @@ export type Env = {
   //
   // Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
   // MY_QUEUE: Queue;
-  APIFY_HOOK_URL_KEY: String;
+  APIFY_HOOK_URL_KEY: string;
   kv: KVNamespace;
-  APIFY_KEY: String;
-  CLOUDFLARE_ACCOUNT_ID: String;
-  KV_NAMESPACE_ID: String;
-  CLOUDFLARE_KEY: String;
+  APIFY_KEY: string;
+  CLOUDFLARE_ACCOUNT_ID: string;
+  KV_NAMESPACE_ID: string;
+  CLOUDFLARE_KEY: string;
+  GOOGLE_MAPS_KEY: string;
 };
 export type WineryOld = {
   title: string;
@@ -32,7 +33,7 @@ export type WineryOld = {
   reviews: { stars: number; publishedAtDate: string }[];
 };
 
-export type Winery = {
+export interface Winery {
   city: string;
   location: { lat: number; lng: number } | null;
   openingHours:
@@ -79,4 +80,8 @@ export type Winery = {
   street: string;
   title: string;
   website: string;
-};
+}
+
+export interface WineryWithID extends Winery {
+  id: string;
+}
