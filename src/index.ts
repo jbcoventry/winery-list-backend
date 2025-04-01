@@ -1,9 +1,14 @@
-import createIndividualWineryAPIResponses from "./createIndividualWineryAPIResponses";
-import fetchFromApify from "./fetchFromApify";
-import createWineryList from "./createWineryList";
+import createIndividualWineryAPIResponses from "./updateData/createWineryDetail";
+import fetchFromApify from "./updateData/fetchFromApify";
+import createWineryList from "./updateData/createWineryList";
 import { Env, Winery, WineryWithID } from "./types";
-import idMaker from "./idMaker";
+import idMaker from "./updateData/idMaker";
 import fetchFromGoogleMaps from "./fetchFromGoogleMaps";
+import updateData from "./updateData/updateData";
+import getWineryByID from "./getWineryByID";
+import getLastUpdated from "./getLastUpdated";
+import getMapImage from "./getMapImage";
+import getWineryList from "./getWineryList";
 
 export default {
   async fetch(
@@ -11,24 +16,13 @@ export default {
     env: Env,
     ct: ExecutionContext,
   ): Promise<Response> {
-    if (request.url.includes(`${env.APIFY_HOOK_URL_KEY}`)) {
-      const ApifyResponse = await fetchFromApify(request, env);
-      const wineryIds = idMaker(ApifyResponse);
-      await createWineryList(request, env, ct, ApifyResponse, wineryIds);
-
-      // await createIndividualWineryAPIResponses(
-      //   request,
-      //   env,
-      //   ct,
-      //   ApifyResponse,
-      //   wineryIds,
-      // );
-
-      return new Response("url key detected and KV updated", { status: 200 });
-    }
+    //This is called by Apify when it updates review data. Scheduled via a cron job on Apify site.
+    if (request.url.includes(`${env.APIFY_HOOK_URL_KEY}`))
+      return updateData(request, env, ct);
+    //Returns a winery by id
     if (request.url.includes("wineries/")) {
       const wineryId = request.url.split("/").pop();
-      const data: WineryWithID | null = await env.kv.get("list", {
+      const data: WineryWithID[] | null = await env.kv.get("list", {
         type: "json",
       });
       if (data === null) {
@@ -44,37 +38,17 @@ export default {
         headers: { "content-type": "application/json;charset=UTF-8" },
       });
     }
+    if (request.url.includes("winery/")) {
+      return getWineryByID(request, env, ct);
+    }
     if (request.url.includes("map/")) {
-      const wineryId = request.url.split("/").pop();
-      const data = await fetchFromGoogleMaps(request, env, wineryId);
-      // Fix below error
-      return new Response(data, {
-        status: 200,
-        headers: {
-          "content-type": "image/png",
-        },
-      });
+      return getMapImage(request, env, ct);
     }
     if (request.url.includes("list")) {
-      const data = await env.kv.get("list", { type: "json" });
-      return new Response(JSON.stringify(data), {
-        status: 200,
-        headers: { "content-type": "application/json;charset=UTF-8" },
-      });
-    }
-    if (request.url.includes("reviewsText")) {
-      const data = await env.kv.get("reviewsText", { type: "json" });
-      return new Response(JSON.stringify(data), {
-        status: 200,
-        headers: { "content-type": "application/json;charset=UTF-8" },
-      });
+      return getWineryList(request, env, ct);
     }
     if (request.url.includes("lastUpdated")) {
-      const data = await env.kv.get("lastUpdated", { type: "json" });
-      return new Response(JSON.stringify(data), {
-        status: 200,
-        headers: { "content-type": "application/json;charset=UTF-8" },
-      });
+      return getLastUpdated(request, env, ct);
     }
 
     return new Response("query needed!", {

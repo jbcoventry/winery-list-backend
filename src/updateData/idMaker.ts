@@ -1,4 +1,4 @@
-import { Winery } from "./types";
+import { Winery } from "../types";
 
 export default function idMaker(data: Winery[]) {
   function createId(string: string, index: number) {

@@ -1,4 +1,4 @@
-import { Env, Winery } from "./types";
+import { Env, Winery } from "../types";
 async function fetchFromApify(request: Request, env: Env): Promise<Winery[]> {
   const url = new URL(
     "https://api.apify.com/v2/actor-tasks/demonstrative_eel~get-all-winery-reviews/runs/last/dataset/items",

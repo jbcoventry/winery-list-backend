@@ -1,4 +1,4 @@
-import { Env, Winery } from "./types";
+import { Env, Winery } from "../types";
 async function createWineryList(
   request: Request,
   env: Env,

@@ -31,6 +31,6 @@ async function fetchFromGoogleMaps(
   if (!response.ok) {
     throw new Error(`unexpected response ${response.status}`);
   }
-  return response.body;
+  return response.blob;
 }
 export default fetchFromGoogleMaps;
