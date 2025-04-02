@@ -19,25 +19,7 @@ export default {
     //This is called by Apify when it updates review data. Scheduled via a cron job on Apify site.
     if (request.url.includes(`${env.APIFY_HOOK_URL_KEY}`))
       return updateData(request, env, ct);
-    //Returns a winery by id
-    if (request.url.includes("wineries/")) {
-      const wineryId = request.url.split("/").pop();
-      const data: WineryWithID[] | null = await env.kv.get("list", {
-        type: "json",
-      });
-      if (data === null) {
-        return new Response("something went wrong", {
-          status: 500,
-          headers: { "content-type": "application/json;charset=UTF-8" },
-        });
-      }
-      const winery = data.filter((w) => w.id == wineryId).pop();
-      const responseData = JSON.stringify(winery);
-      return new Response(responseData, {
-        status: 200,
-        headers: { "content-type": "application/json;charset=UTF-8" },
-      });
-    }
+
     if (request.url.includes("winery/")) {
       return getWineryByID(request, env, ct);
     }

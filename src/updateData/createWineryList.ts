@@ -6,43 +6,18 @@ async function createWineryList(
   ApifyResponse: Winery[],
   wineryIds: string[],
 ) {
-  const list = ApifyResponse.map(
-    (
-      {
-        title,
-        street,
-        city,
-        postalCode,
-        website,
-        phoneUnformatted: phone,
-        openingHours,
-        location,
-        placeId,
-        reviews,
-      },
-      index,
-    ) => {
-      return {
-        id: wineryIds[index],
-        title,
-        street,
-        city,
-        postalCode,
-        website,
-        phone,
-        openingHours,
-        location,
-        placeId,
-        lastUpdated: new Date().toJSON(),
-        reviews: reviews.map(({ stars: rating, publishedAtDate }) => {
-          return {
-            rating,
-            timestamp: Math.round(Date.parse(publishedAtDate) / 1000),
-          };
-        }),
-      };
-    },
-  );
+  const list = ApifyResponse.map(({ title, reviews }, index) => {
+    return {
+      id: wineryIds[index],
+      title,
+      reviews: reviews.map(({ stars: rating, publishedAtDate }) => {
+        return {
+          rating,
+          timestamp: Math.round(Date.parse(publishedAtDate) / 1000),
+        };
+      }),
+    };
+  });
 
   await env.kv.put("list", JSON.stringify(list), {
     expirationTtl: 60 * 60 * 24 * 30,
