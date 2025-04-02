@@ -1,9 +1,16 @@
+import fetchFromGoogleMaps from "./fetchFromGoogleMaps";
 import { Env, Winery, WineryWithID } from "./types";
 
-async function getMapImage(request: Request, env: Env, ct: ExecutionContext) {
-  const wineryId = request.url.split("/").pop();
-  const data = await fetchFromGoogleMaps(request, env, wineryId);
-  // Fix below error
+async function getMapImage(
+  request: Request,
+  env: Env,
+  ct: ExecutionContext,
+): Promise<Response> {
+  const data = await fetchFromGoogleMaps(
+    request,
+    env,
+    request.url.split("/").pop(),
+  );
   return new Response(data, {
     status: 200,
     headers: {
