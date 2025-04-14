@@ -18,7 +18,7 @@ async function fetchFromGoogleMaps(
   const response = await fetch(
     `https://maps.googleapis.com/maps/api/staticmap?center=${winery.location?.lat},${winery.location?.lng}&zoom=16&size=400x400&key=${env.GOOGLE_MAPS_KEY}&scale=2`,
     {
-      method: "POST",
+      method: "GET",
     },
   );
 

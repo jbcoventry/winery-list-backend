@@ -20,6 +20,7 @@ export type Env = {
   KV_NAMESPACE_ID: string;
   CLOUDFLARE_KEY: string;
   GOOGLE_MAPS_KEY: string;
+  APIFY_DATASET_ID: string;
 };
 export type WineryOld = {
   title: string;

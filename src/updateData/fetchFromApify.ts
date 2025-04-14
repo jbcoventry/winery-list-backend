@@ -1,7 +1,7 @@
 import { Env, Winery } from "../types";
 async function fetchFromApify(request: Request, env: Env): Promise<Winery[]> {
   const url = new URL(
-    "https://api.apify.com/v2/actor-tasks/demonstrative_eel~get-all-winery-reviews/runs/last/dataset/items",
+    `https://api.apify.com/v2/datasets/${env.APIFY_DATASET_ID}/items`,
   );
   url.searchParams.append("format", "json");
   url.searchParams.append("clean", "1");
