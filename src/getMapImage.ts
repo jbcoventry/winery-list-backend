@@ -6,11 +6,7 @@ async function getMapImage(
   env: Env,
   ct: ExecutionContext,
 ): Promise<Response> {
-  const data = await fetchFromGoogleMaps(
-    request,
-    env,
-    request.url.split("/").pop(),
-  );
+  const data = await fetchFromGoogleMaps(request, env);
   return new Response(data, {
     status: 200,
     headers: {

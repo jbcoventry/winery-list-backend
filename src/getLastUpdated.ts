@@ -5,7 +5,7 @@ async function getLastUpdated(
   env: Env,
   ct: ExecutionContext,
 ) {
-  const data = await env.kv.get("lastUpdated", { type: "json" });
+  const data = await env.winery_data.get("lastUpdated", { type: "json" });
   return new Response(JSON.stringify(data), {
     status: 200,
     headers: { "content-type": "application/json;charset=UTF-8" },

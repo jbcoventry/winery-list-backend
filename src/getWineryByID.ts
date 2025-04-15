@@ -2,7 +2,8 @@ import { Env, Winery, WineryWithID } from "./types";
 
 async function getWineryByID(request: Request, env: Env, ct: ExecutionContext) {
   const wineryId = request.url.split("/").pop();
-  const data = await env.kv.get(`${wineryId}`, { type: "json" });
+  console.log(wineryId);
+  const data = await env.winery_data.get(`${wineryId}`, { type: "json" });
   if (data === null) {
     return new Response("something went wrong", {
       status: 500,

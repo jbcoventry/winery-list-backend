@@ -19,11 +19,15 @@ async function createWineryList(
     };
   });
 
-  await env.kv.put("list", JSON.stringify(list), {
+  await env.winery_data.put("list", JSON.stringify(list), {
     expirationTtl: 60 * 60 * 24 * 30,
   });
-  await env.kv.put("lastUpdated", JSON.stringify(new Date().toJSON()), {
-    expirationTtl: 60 * 60 * 24 * 30,
-  });
+  await env.winery_data.put(
+    "lastUpdated",
+    JSON.stringify(new Date().toJSON()),
+    {
+      expirationTtl: 60 * 60 * 24 * 30,
+    },
+  );
 }
 export default createWineryList;

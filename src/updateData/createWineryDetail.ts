@@ -59,13 +59,14 @@ async function createWineryDetail(
         list.map((winery) => {
           return {
             expiration_ttl: 60 * 60 * 24 * 30,
-            key: `${winery.id}`,
+            key: winery.id,
             value: JSON.stringify(winery),
           };
         }),
       ),
     },
   );
+  console.log(list[1]);
   const result = await response.json();
   return result;
 }

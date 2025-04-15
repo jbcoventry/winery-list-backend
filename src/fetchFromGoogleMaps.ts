@@ -1,20 +1,17 @@
 import { Env, Winery, WineryWithID } from "./types";
-async function fetchFromGoogleMaps(
-  request: Request,
-  env: Env,
-  wineryId: string | undefined,
-) {
-  const data: WineryWithID[] | null = await env.kv.get("list", {
+async function fetchFromGoogleMaps(request: Request, env: Env) {
+  const wineryId = request.url.split("/").pop();
+  if (wineryId === undefined) {
+    return "no winery id provided";
+  }
+  const winery: WineryWithID | null = await env.winery_data.get(wineryId, {
     type: "json",
   });
-  if (data === null) {
+  if (winery === null || winery === undefined) {
     throw new Error("KV fetch failed");
   }
 
-  const winery = data.filter((w) => w.id == wineryId).pop();
-  if (winery === undefined) {
-    throw new Error("winery not found");
-  }
+  console.log(winery);
   const response = await fetch(
     `https://maps.googleapis.com/maps/api/staticmap?center=${winery.location?.lat},${winery.location?.lng}&zoom=16&size=400x400&key=${env.GOOGLE_MAPS_KEY}&scale=2`,
     {

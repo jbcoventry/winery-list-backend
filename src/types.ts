@@ -14,13 +14,13 @@ export type Env = {
   // Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
   // MY_QUEUE: Queue;
   APIFY_HOOK_URL_KEY: string;
-  kv: KVNamespace;
   APIFY_KEY: string;
   CLOUDFLARE_ACCOUNT_ID: string;
   KV_NAMESPACE_ID: string;
   CLOUDFLARE_KEY: string;
   GOOGLE_MAPS_KEY: string;
   APIFY_DATASET_ID: string;
+  winery_data: KVNamespace;
 };
 export type WineryOld = {
   title: string;

@@ -4,9 +4,8 @@
   "compatibility_date": "2025-03-27",
   "kv_namespaces": [
     {
-      "binding": "kv",
-      "id": "7936578a5c0a42e4b182fe01125e25a7",
-      "preview_id": "3d9f7524172044aa9b513efaaf0e6217"
+      "binding": "winery_data",
+      "id": "6e26c33ac1d0464ca519558187933e5d"
     }
   ],
 
@@ -18,9 +17,8 @@
       },
       "kv_namespaces": [
         {
-          "binding": "kv",
-          "id": "7936578a5c0a42e4b182fe01125e25a7",
-          "preview_id": "3d9f7524172044aa9b513efaaf0e6217"
+          "binding": "winery_data",
+          "id": "6e26c33ac1d0464ca519558187933e5d"
         }
       ]
     }
