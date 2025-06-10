@@ -21,6 +21,7 @@ export type Env = {
   GOOGLE_MAPS_KEY: string;
   APIFY_DATASET_ID: string;
   winery_data: KVNamespace;
+  DB: D1Database;
 };
 export type WineryOld = {
   title: string;

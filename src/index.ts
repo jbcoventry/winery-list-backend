@@ -32,6 +32,18 @@ export default {
     if (request.url.includes("lastUpdated")) {
       return getLastUpdated(request, env, ct);
     }
+    //testing database
+    const { pathname } = new URL(request.url);
+
+    if (pathname === "/api/beverages") {
+      // If you did not use `DB` as your binding name, change it here
+      const { results } = await env.DB.prepare(
+        "SELECT * FROM Customers WHERE CompanyName = ?",
+      )
+        .bind("Bs Beverages")
+        .all();
+      return Response.json(results);
+    }
 
     return new Response("query needed!", {
       status: 200,

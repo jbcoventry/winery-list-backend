@@ -8,6 +8,13 @@
       "id": "6e26c33ac1d0464ca519558187933e5d"
     }
   ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "winery-site-db",
+      "database_id": "5fe01212-a893-4e7b-a012-906ae8e509f5"
+    }
+  ],
 
   "env": {
     "production": {
@@ -19,6 +26,13 @@
         {
           "binding": "winery_data",
           "id": "6e26c33ac1d0464ca519558187933e5d"
+        }
+      ],
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "winery-site-db",
+          "database_id": "5fe01212-a893-4e7b-a012-906ae8e509f5"
         }
       ]
     }
